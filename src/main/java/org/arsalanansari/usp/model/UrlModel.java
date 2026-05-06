@@ -19,11 +19,10 @@ import lombok.Setter;
 public class UrlModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String shortUrl;
     @Column(nullable =false)
     private String longUrl;
-    private String shortUrl;
-    private String timeOfCreation;
-    private long expiry;
+    private long expireEpoch;
+    private long clickCount;
+    private String expireTime;
 }

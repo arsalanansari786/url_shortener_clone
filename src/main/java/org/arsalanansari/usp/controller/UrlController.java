@@ -21,8 +21,11 @@ public class UrlController {
     @Autowired 
     private UrlService urlService;
 
-    @GetMapping("/todo/{shorturl}")
+    @GetMapping("/{shorturl}")
     public ResponseEntity<?> redirect(@PathVariable String shorturl) {
+        if(shorturl==null || shorturl.isBlank() || shorturl.length()>6){
+        return   new ResponseEntity<>(HttpStatus.URI_TOO_LONG);  
+        }
         String url=urlService.fetchLongUrl(shorturl);
         if(url!=null  && !url.isEmpty()){
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(url)).build();
@@ -31,13 +34,16 @@ public class UrlController {
         }
     }
 
-    @PostMapping("/shorten")
+    @PostMapping("/short")
     public  ResponseEntity<?>  getshortUrl(@RequestBody String longurl) {
         if(longurl==null || longurl.isEmpty()){
             return new ResponseEntity<>("Invalid Url", HttpStatus.LENGTH_REQUIRED);
         }
         String url =urlService.getShortUrl(longurl);
-        return ResponseEntity.ok().body("http://127.0.0.1:8991/todo/"+url);
+        if(url!=null && !url.isBlank()){
+            return ResponseEntity.ok().body("http://127.0.0.1:8991/"+url);
+        }
+        return new ResponseEntity<>("Cannot short the url", HttpStatus.UNPROCESSABLE_ENTITY);
     }
     
     
