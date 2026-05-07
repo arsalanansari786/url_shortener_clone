@@ -45,6 +45,17 @@ public class UrlController {
         }
         return new ResponseEntity<>("Cannot short the url", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @GetMapping("/view")
+    public ResponseEntity<?> view() {
+        if(urlService.getMap().isEmpty()){
+            return new ResponseEntity<>("No url is present to show",HttpStatus.OK);
+        }
+        return new ResponseEntity<>(urlService.getMap(), HttpStatus.OK);
+    }
+     @GetMapping("/expired")
+    public ResponseEntity<?> expired() {
+            return new ResponseEntity<>("Link is expired.",HttpStatus.FORBIDDEN);
+        }
     
     
 }
