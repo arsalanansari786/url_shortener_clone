@@ -43,7 +43,7 @@ public class UrlController {
         if(url!=null && !url.isBlank()){
             return ResponseEntity.ok().body("http://127.0.0.1:8991/"+url);
         }
-        return new ResponseEntity<>("Cannot short the url", HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>("Cannot short the url", HttpStatus.INTERNAL_SERVER_ERROR);
     }
     
     
