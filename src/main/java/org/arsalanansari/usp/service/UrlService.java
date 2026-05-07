@@ -75,7 +75,7 @@ public class UrlService {
                 return null;
             }
             // expire after 5 minutes
-            long expireTime = 300 * 1000 + System.currentTimeMillis();
+            long expireTime = 120 * 1000 + System.currentTimeMillis();
             UrlModel urlModel = new UrlModel(shorturl, url, expireTime, 0,
                     helperService.getDateAndTimeFromEpoch(expireTime));
                     // if(map.size()==Integer.MAX_VALUE){

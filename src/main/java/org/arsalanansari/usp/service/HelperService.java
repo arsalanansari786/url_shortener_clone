@@ -12,7 +12,7 @@ public class HelperService {
 
     DateTimeFormatter dtf=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     ZoneId zoneId=ZoneId.systemDefault();
-    public static String expiredLink="127.0.0.1:8991/expired";
+    public static String expiredLink="http://dev.local:8991/expired";
 
     public String getDateAndTimeFromEpoch(long epoch){
         Instant instant=Instant.ofEpochMilli(epoch);
