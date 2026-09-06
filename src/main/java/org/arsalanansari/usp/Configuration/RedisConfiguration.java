@@ -14,6 +14,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Configuration
 public class RedisConfiguration {
 
@@ -29,7 +32,7 @@ public class RedisConfiguration {
 
             return new LettuceConnectionFactory(redisStandaloneConfiguration, clientConfig);
            } catch (Exception e) {
-            // TODO: handle exception
+            log.error("Failed to create Redis connection factory", e);
         }
         return null;
     }
@@ -37,7 +40,7 @@ public class RedisConfiguration {
     public RedisTemplate<String,Object>redisTemplate(LettuceConnectionFactory lettuceConnectionFactory){
         try {
             if(lettuceConnectionFactory==null){
-                System.out.println("Redis Connection is not established");
+                log.warn("Redis connection is not established, skipping RedisTemplate setup");
                 return null;
             }
             RedisTemplate<String ,Object>redisTemplate=new RedisTemplate<>();
@@ -47,7 +50,7 @@ public class RedisConfiguration {
             redisTemplate.afterPropertiesSet();
             return redisTemplate;
         } catch (Exception e) {
-            // TODO: handle exception
+            log.error("Failed to create RedisTemplate", e);
         }
         return null;
     }

@@ -1,4 +1,4 @@
-package org.arsalanansari.usp.model;
+package org.arsalanansari.usp.Base62.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
