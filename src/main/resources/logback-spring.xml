@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="usp"/>
+    <springProperty scope="context" name="logBasePath" source="app.log.base-path" defaultValue="/var/log"/>
+
+    <property name="LOG_PATH" value="${logBasePath}/${appName}"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- one directory per day; today's active file lives directly at this path -->
+            <fileNamePattern>${LOG_PATH}/%d{yyyy-MM-dd}/app.log</fileNamePattern>
+            <!-- keep 30 days of history, older directories are deleted automatically -->
+            <maxHistory>30</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <!-- %logger is the class name resolved from the Logger instance itself (free) -
+                 no method name here: %M requires a stack-trace walk on every log call,
+                 which is too costly for a high-traffic request path -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- offloads file I/O to a background thread so request threads never block on disk writes -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE"/>
+        <queueSize>1024</queueSize>
+        <includeCallerData>false</includeCallerData>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="ASYNC_FILE"/>
+    </root>
+
+</configuration>
