@@ -1,4 +1,4 @@
-package org.arsalanansari.usp.Base62.model;
+package org.arsalanansari.usp.singleInstanceCounter.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

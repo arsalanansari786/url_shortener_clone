@@ -1,4 +1,4 @@
-# Stage 1 — `Base62`: single-instance counter + local cache
+# Stage 1 — `singleInstanceCounter`: single-instance counter + local cache
 
 This package is the first working implementation of the URL shortener. The goal at this
 stage was correctness and basic collision-safety on a single machine — not scale. This
@@ -8,12 +8,11 @@ in this repo replaces it.
 
 ## What's actually implemented here
 
-**Note on the name:** the package is called `Base62`, but the code encodes with
-`java.util.Base64` (`getBase64Hash`), not a true base-62 alphabet. Base62 (digits +
-upper/lower letters) was the intended scheme because it's URL-safe by construction;
-what's here still needs a length-6 substring of standard Base64 output, which can
-contain `+` and `/`. Flagging this now because it's a real gap between the package's
-name and its behavior, not just a style note.
+**Note on the name:** this package was originally called `Base62`, but the code
+actually encodes with `java.util.Base64` (`getBase64Hash`), not a true base-62
+alphabet — Base64 output can contain `+` and `/`, which aren't URL-safe. The package
+was renamed to `singleInstanceCounter` to describe what it actually is: a short-code
+generator built around a single, process-local atomic counter, not a base-62 encoder.
 
 **Short code generation** (`UrlService.getBase64Hash`):
 - A shared `AtomicLong counterVar` is incremented (`updateAndGet`, genuinely atomic —

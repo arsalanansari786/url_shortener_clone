@@ -1,4 +1,4 @@
-package org.arsalanansari.usp.Base62.service;
+package org.arsalanansari.usp.singleInstanceCounter.service;
 
 import java.util.Base64;
 import java.util.HashMap;
@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.arsalanansari.usp.Base62.Repository.UrlRepository;
-import org.arsalanansari.usp.Base62.model.UrlModel;
+import org.arsalanansari.usp.singleInstanceCounter.Repository.UrlRepository;
+import org.arsalanansari.usp.singleInstanceCounter.model.UrlModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

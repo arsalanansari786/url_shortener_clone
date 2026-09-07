@@ -1,12 +1,12 @@
-package org.arsalanansari.usp.Base62.controller;
+package org.arsalanansari.usp.singleInstanceCounter.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import org.arsalanansari.usp.Base62.service.HelperService;
-import org.arsalanansari.usp.Base62.service.UrlService;
+import org.arsalanansari.usp.singleInstanceCounter.service.HelperService;
+import org.arsalanansari.usp.singleInstanceCounter.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

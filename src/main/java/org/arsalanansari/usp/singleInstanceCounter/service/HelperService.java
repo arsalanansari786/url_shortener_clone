@@ -1,4 +1,4 @@
-package org.arsalanansari.usp.Base62.service;
+package org.arsalanansari.usp.singleInstanceCounter.service;
 
 import java.time.Instant;
 import java.time.ZoneId;
